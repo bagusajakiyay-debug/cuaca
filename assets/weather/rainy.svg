@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Hujan">
+  <path d="M18 18c0-7 6-12 13-12 7 0 13 5 13 12a10 10 0 1 1-4 19H22a8 8 0 0 1-4-14Z" fill="#cbd5e1"/>
+  <path d="M23 38l-4 14M33 34l-4 14M43 38l-4 14" stroke="#38bdf8" stroke-width="3" stroke-linecap="round"/>
+</svg>

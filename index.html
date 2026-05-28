@@ -23,12 +23,17 @@
           <input
             id="cityInput"
             type="text"
-            placeholder="Masukkan nama kota, contoh: Jakarta"
-            aria-label="Nama kota"
+            list="citySuggestions"
+            placeholder="Masukkan nama kota atau daerah, contoh: Jakarta, Bandung, Bali"
+            aria-label="Nama kota atau daerah"
             required
           />
+          <datalist id="citySuggestions"></datalist>
           <button type="submit">Cari</button>
         </form>
+
+        <p class="helper-text">Pilih kota atau daerah dari daftar saran di bawah ini untuk pencarian lebih cepat.</p>
+        <div id="locationSuggestions" class="suggestion-wrap" aria-label="Daftar kota dan daerah"></div>
 
         <div id="statusMessage" class="status-message" aria-live="polite"></div>
 
@@ -38,7 +43,9 @@
               <p class="label">Lokasi</p>
               <h2 id="cityName">-</h2>
             </div>
-            <span id="weatherIcon" class="weather-icon">☀️</span>
+            <div class="weather-icon-box">
+              <img id="weatherIcon" class="weather-icon" src="assets/weather/sunny.svg" alt="Ikon cuaca" />
+            </div>
           </div>
 
           <div class="metrics-grid">

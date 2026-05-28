@@ -7,6 +7,41 @@ const tempValueEl = document.getElementById('tempValue');
 const humidityValueEl = document.getElementById('humidityValue');
 const conditionValueEl = document.getElementById('conditionValue');
 const weatherIconEl = document.getElementById('weatherIcon');
+const locationSuggestionsEl = document.getElementById('locationSuggestions');
+const citySuggestionsEl = document.getElementById('citySuggestions');
+
+const locationSuggestions = [
+  'Aceh', 'Banda Aceh', 'Sabang', 'Lhokseumawe', 'Langsa',
+  'Sumatera Utara', 'Medan', 'Binjai', 'Pematangsiantar', 'Tebing Tinggi', 'Padang Sidempuan',
+  'Sumatera Barat', 'Padang', 'Bukittinggi', 'Pariaman', 'Payakumbuh',
+  'Riau', 'Pekanbaru', 'Dumai', 'Batam', 'Tanjungpinang',
+  'Jambi', 'Bengkulu', 'Palembang', 'Prabumulih', 'Lubuklinggau',
+  'Sumatera Selatan', 'Lampung', 'Bandar Lampung', 'Metro',
+  'Bangka Belitung', 'Pangkal Pinang',
+  'Jakarta', 'Bogor', 'Depok', 'Tangerang', 'Bekasi', 'Cilegon', 'Serang',
+  'Jawa Barat', 'Bandung', 'Cimahi', 'Cirebon', 'Tasikmalaya', 'Banjar', 'Sukabumi',
+  'Jawa Tengah', 'Semarang', 'Solo', 'Magelang', 'Pekalongan', 'Tegal', 'Salatiga',
+  'Yogyakarta', 'Bantul', 'Sleman', 'Kulon Progo', 'Gunungkidul',
+  'Jawa Timur', 'Surabaya', 'Malang', 'Batu', 'Kediri', 'Madiun', 'Mojokerto', 'Pasuruan', 'Probolinggo', 'Blitar', 'Sidoarjo',
+  'Bali', 'Denpasar', 'Singaraja', 'Tabanan', 'Badung', 'Gianyar', 'Bangli', 'Karangasem', 'Buleleng',
+  'Nusa Tenggara Barat', 'Mataram', 'Bima',
+  'Nusa Tenggara Timur', 'Kupang', 'Atambua', 'Ende', 'Maumere',
+  'Kalimantan Barat', 'Pontianak', 'Singkawang',
+  'Kalimantan Tengah', 'Palangkaraya',
+  'Kalimantan Selatan', 'Banjarmasin', 'Banjarbaru',
+  'Kalimantan Timur', 'Samarinda', 'Balikpapan', 'Bontang', 'Tarakan',
+  'Kalimantan Utara', 'Nunukan',
+  'Sulawesi Utara', 'Manado', 'Tomohon', 'Bitung', 'Kotamobagu',
+  'Gorontalo', 'Gorontalo', 'Boalemo',
+  'Sulawesi Tengah', 'Palu', 'Donggala',
+  'Sulawesi Selatan', 'Makassar', 'Parepare', 'Palopo', 'Watampone',
+  'Sulawesi Tenggara', 'Kendari', 'Baubau',
+  'Sulawesi Barat', 'Mamuju',
+  'Maluku', 'Ambon', 'Tual',
+  'Maluku Utara', 'Ternate', 'Tidore Kepulauan', 'Sofifi',
+  'Papua Barat', 'Manokwari', 'Sorong', 'Fakfak', 'Kaimana',
+  'Papua', 'Jayapura', 'Merauke', 'Timika', 'Nabire', 'Wamena', 'Biak', 'Sentani'
+];
 
 const weatherDescriptions = {
   0: 'Cerah',
@@ -40,25 +75,65 @@ const weatherDescriptions = {
 };
 
 const iconMap = {
-  0: '☀️',
-  1: '🌤️',
-  2: '⛅',
-  3: '☁️',
-  45: '🌫️',
-  48: '🌫️',
-  51: '🌦️',
-  53: '🌦️',
-  55: '🌧️',
-  61: '🌧️',
-  63: '🌧️',
-  65: '🌧️',
-  80: '🌦️',
-  81: '🌧️',
-  82: '⛈️',
-  95: '⛈️',
-  96: '⛈️',
-  99: '⛈️'
+  0: 'assets/weather/sunny.svg',
+  1: 'assets/weather/sunny.svg',
+  2: 'assets/weather/cloudy.svg',
+  3: 'assets/weather/cloudy.svg',
+  45: 'assets/weather/foggy.svg',
+  48: 'assets/weather/foggy.svg',
+  51: 'assets/weather/rainy.svg',
+  53: 'assets/weather/rainy.svg',
+  55: 'assets/weather/rainy.svg',
+  61: 'assets/weather/rainy.svg',
+  63: 'assets/weather/rainy.svg',
+  65: 'assets/weather/rainy.svg',
+  66: 'assets/weather/rainy.svg',
+  67: 'assets/weather/rainy.svg',
+  71: 'assets/weather/snowy.svg',
+  73: 'assets/weather/snowy.svg',
+  75: 'assets/weather/snowy.svg',
+  77: 'assets/weather/snowy.svg',
+  80: 'assets/weather/rainy.svg',
+  81: 'assets/weather/rainy.svg',
+  82: 'assets/weather/storm.svg',
+  85: 'assets/weather/snowy.svg',
+  86: 'assets/weather/snowy.svg',
+  95: 'assets/weather/storm.svg',
+  96: 'assets/weather/storm.svg',
+  99: 'assets/weather/storm.svg'
 };
+
+function renderLocationSuggestions() {
+  const uniqueLocations = [...new Set(locationSuggestions)].sort((a, b) => a.localeCompare(b, 'id'));
+
+  const optionFragment = document.createDocumentFragment();
+  const chipFragment = document.createDocumentFragment();
+
+  uniqueLocations.forEach((item) => {
+    const option = document.createElement('option');
+    option.value = item;
+    optionFragment.appendChild(option);
+
+    const chip = document.createElement('button');
+    chip.type = 'button';
+    chip.className = 'suggestion-chip';
+    chip.textContent = item;
+    chip.dataset.location = item;
+    chipFragment.appendChild(chip);
+  });
+
+  citySuggestionsEl.appendChild(optionFragment);
+  locationSuggestionsEl.appendChild(chipFragment);
+}
+
+function handleSuggestionClick(event) {
+  const button = event.target.closest('button[data-location]');
+
+  if (!button) return;
+
+  cityInput.value = button.dataset.location;
+  form.requestSubmit();
+}
 
 async function getCityCoordinates(query) {
   const response = await fetch(
@@ -96,7 +171,8 @@ function renderWeather(result) {
   tempValueEl.textContent = Math.round(result.current.temperature_2m);
   humidityValueEl.textContent = result.current.relative_humidity_2m;
   conditionValueEl.textContent = weatherDescriptions[weatherCode] || 'Cuaca tidak diketahui';
-  weatherIconEl.textContent = iconMap[weatherCode] || '🌈';
+  weatherIconEl.src = iconMap[weatherCode] || 'assets/weather/cloudy.svg';
+  weatherIconEl.alt = `Ikon cuaca ${weatherDescriptions[weatherCode] || 'umum'}`;
   weatherResult.classList.remove('hidden');
 }
 
@@ -127,8 +203,10 @@ async function handleSearch(event) {
 }
 
 form.addEventListener('submit', handleSearch);
+locationSuggestionsEl.addEventListener('click', handleSuggestionClick);
 
 window.addEventListener('DOMContentLoaded', async () => {
+  renderLocationSuggestions();
   statusMessage.textContent = 'Memuat cuaca default untuk Jakarta...';
   try {
     const location = await getCityCoordinates('Jakarta');
