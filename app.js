@@ -7,7 +7,6 @@ const tempValueEl = document.getElementById('tempValue');
 const humidityValueEl = document.getElementById('humidityValue');
 const conditionValueEl = document.getElementById('conditionValue');
 const weatherIconEl = document.getElementById('weatherIcon');
-const locationSuggestionsEl = document.getElementById('locationSuggestions');
 const citySuggestionsEl = document.getElementById('citySuggestions');
 
 const locationSuggestions = [
@@ -107,32 +106,14 @@ function renderLocationSuggestions() {
   const uniqueLocations = [...new Set(locationSuggestions)].sort((a, b) => a.localeCompare(b, 'id'));
 
   const optionFragment = document.createDocumentFragment();
-  const chipFragment = document.createDocumentFragment();
 
   uniqueLocations.forEach((item) => {
     const option = document.createElement('option');
     option.value = item;
     optionFragment.appendChild(option);
-
-    const chip = document.createElement('button');
-    chip.type = 'button';
-    chip.className = 'suggestion-chip';
-    chip.textContent = item;
-    chip.dataset.location = item;
-    chipFragment.appendChild(chip);
   });
 
   citySuggestionsEl.appendChild(optionFragment);
-  locationSuggestionsEl.appendChild(chipFragment);
-}
-
-function handleSuggestionClick(event) {
-  const button = event.target.closest('button[data-location]');
-
-  if (!button) return;
-
-  cityInput.value = button.dataset.location;
-  form.requestSubmit();
 }
 
 async function getCityCoordinates(query) {
@@ -203,7 +184,6 @@ async function handleSearch(event) {
 }
 
 form.addEventListener('submit', handleSearch);
-locationSuggestionsEl.addEventListener('click', handleSuggestionClick);
 
 window.addEventListener('DOMContentLoaded', async () => {
   renderLocationSuggestions();

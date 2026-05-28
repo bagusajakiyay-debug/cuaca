@@ -2,7 +2,8 @@
   color-scheme: dark;
   font-family: 'Inter', sans-serif;
   background:
-    radial-gradient(circle at top, #1e3a8a 0%, #111827 35%, #020617 100%);
+    linear-gradient(rgba(15, 23, 42, 0.45), rgba(2, 6, 23, 0.72)),
+    url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat fixed;
   color: #eff6ff;
 }
 
