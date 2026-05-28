@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Website Cuaca</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="card weather-card">
+        <p class="eyebrow">Prakiraan Cuaca</p>
+        <h1>Temukan cuaca kota yang Anda cari</h1>
+        <p class="subtext">Cek suhu, kelembapan, dan kondisi cuaca secara cepat.</p>
+
+        <form id="searchForm" class="search-box" autocomplete="off">
+          <input
+            id="cityInput"
+            type="text"
+            placeholder="Masukkan nama kota, contoh: Jakarta"
+            aria-label="Nama kota"
+            required
+          />
+          <button type="submit">Cari</button>
+        </form>
+
+        <div id="statusMessage" class="status-message" aria-live="polite"></div>
+
+        <article id="weatherResult" class="weather-result hidden" aria-live="polite">
+          <div class="weather-head">
+            <div>
+              <p class="label">Lokasi</p>
+              <h2 id="cityName">-</h2>
+            </div>
+            <span id="weatherIcon" class="weather-icon">☀️</span>
+          </div>
+
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <p class="label">Suhu</p>
+              <strong id="tempValue">--</strong>
+              <span>°C</span>
+            </div>
+            <div class="metric-card">
+              <p class="label">Kelembapan</p>
+              <strong id="humidityValue">--</strong>
+              <span>%</span>
+            </div>
+            <div class="metric-card full-width">
+              <p class="label">Kondisi</p>
+              <strong id="conditionValue">--</strong>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
